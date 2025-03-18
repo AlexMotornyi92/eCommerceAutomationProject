@@ -1,13 +1,15 @@
 name: CI
 
 on:
+  push:
+    branches:
+      - master
   pull_request:
     branches:
       - master
 
 jobs:
-  run-tests:
-    name: 'Run tests'
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,17 +23,5 @@ jobs:
           java-version: '22'
           cache: 'maven'
 
-      - name: Cache Maven dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
-
-
-      - name: Run tests with Maven
-        run: mvn clean test -Dsurefire.suiteXmlFiles=suite/allTests.xml
-        env:
-          CHROME_OPTIONS: --headless --disable-gpu --no-sandbox --remote-allow-origins=* --disable-dev-shm-usage --window-size=1920,1080
-          APP_URL: https://www.automationexercise.com/
+      - name: Build and Test
+        run: mvn clean test

@@ -23,7 +23,7 @@ public class HomePage extends BasePage {
         PageFactory.initElements(driver, this);
     }
 
-    public void clickProductsButton() {
+    public void clickProductsButton(WebDriver driver) {
         productsButton.click();
     }
     public void clickSiteLogo() {

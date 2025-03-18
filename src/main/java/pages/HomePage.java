@@ -15,6 +15,8 @@ public class HomePage extends BasePage {
     private WebElement cartButton;
     @FindBy(xpath = "//a[contains(text(), 'Signup / Login')]")
     private WebElement signupLoginButton;
+    @FindBy(xpath = "//a[contains(text(), 'Contact us')]")
+    private WebElement contactUsButton;
 
     public HomePage (WebDriver driver){
         super(driver);
@@ -32,8 +34,5 @@ public class HomePage extends BasePage {
     }
     public void clickSignupLoginButton() {
         signupLoginButton.click();
-    }
-    public void testTest(){
-
     }
 }

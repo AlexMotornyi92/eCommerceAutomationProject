@@ -1,26 +1,24 @@
-name: CI Pipeline
+name: CI
 
 on:
-  push:
-    branches:
-      - master
   pull_request:
     branches:
-      - master
+      - main
 
 jobs:
-  build:
+  run-tests:
+    name: 'Run tests'
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
+          distribution: 'corretto'
           java-version: '17'
-          distribution: 'adoptopenjdk'
 
       - name: Cache Maven dependencies
         uses: actions/cache@v3
@@ -30,12 +28,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      - name: Build and test with Maven
-        run: mvn clean test
 
-      - name: Upload test results
-        if: always()
-        uses: actions/upload-artifact@v2
-        with:
-          name: test-results
-          path: target/surefire-reports
+      - name: Run tests with Maven
+        run: mvn clean test -Dsurefire.suiteXmlFiles=suite/allTests.xml
+        env:
+          CHROME_OPTIONS: --headless --disable-gpu --no-sandbox --remote-allow-origins=* --disable-dev-shm-usage --window-size=1920,1080
+          APP_URL: https://www.automationexercise.com/

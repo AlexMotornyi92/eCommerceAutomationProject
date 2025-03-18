@@ -35,4 +35,5 @@ public class HomePage extends BasePage {
     public void clickSignupLoginButton() {
         signupLoginButton.click();
     }
+    public void  dfnsdj(){}
 }

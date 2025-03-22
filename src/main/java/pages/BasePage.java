@@ -7,6 +7,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
+
 public class BasePage {
     protected WebDriver driver;
 
@@ -31,7 +33,7 @@ public class BasePage {
     }
 
     public void waitForElementToBeVisible (By locator, int timeoutInSec){
-        WebDriverWait wait = new WebDriverWait(driver, timeoutInSec);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSec));
         wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 

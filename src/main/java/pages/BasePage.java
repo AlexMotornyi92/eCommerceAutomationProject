@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class BasePage {
+public abstract class BasePage {
     protected WebDriver driver;
 
     public BasePage(WebDriver driver){
@@ -21,13 +21,11 @@ public class BasePage {
         return driver.findElement(locator);
     }
 
-    public void click(By locator){
-        WebElement element = findElement(locator);
+    public void click(WebElement element){
         element.click();
     }
 
-    public void sendKeys (By locator, String text){
-        WebElement element = findElement(locator);
+    public void sendKeys (WebElement element, String text){
         element.clear();
         element.sendKeys(text);
     }
@@ -37,14 +35,12 @@ public class BasePage {
         wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
-    public String getText (By locator){
-        WebElement element = findElement(locator);
+    public String getText (WebElement element){
         return element.getText();
     }
 
-    public boolean isElementVisible (By locator){
+    public boolean isElementVisible (WebElement element){
         try {
-            WebElement element = findElement(locator);
             return element.isDisplayed();
         } catch (Exception e){
             return false;
